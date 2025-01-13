@@ -17,6 +17,7 @@ Kubernetes: `>= 1.19.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 |  | crds | 0.0.0 |
+| https://metallb.github.io/frr-k8s | frr-k8s | 0.0.17 |
 
 ## Values
 
@@ -54,9 +55,14 @@ Kubernetes: `>= 1.19.0-0`
 | controller.serviceAccount.create | bool | `true` |  |
 | controller.serviceAccount.name | string | `""` |  |
 | controller.strategy.type | string | `"RollingUpdate"` |  |
+| controller.tlsCipherSuites | string | `""` |  |
+| controller.tlsMinVersion | string | `"VersionTLS12"` |  |
 | controller.tolerations | list | `[]` |  |
 | crds.enabled | bool | `true` |  |
 | crds.validationFailurePolicy | string | `"Fail"` |  |
+| frrk8s.enabled | bool | `false` |  |
+| frrk8s.external | bool | `false` |  |
+| frrk8s.namespace | string | `""` |  |
 | fullnameOverride | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | loadBalancerClass | string | `""` |  |
@@ -73,17 +79,17 @@ Kubernetes: `>= 1.19.0-0`
 | prometheus.podMonitor.relabelings | list | `[]` |  |
 | prometheus.prometheusRule.additionalLabels | object | `{}` |  |
 | prometheus.prometheusRule.addressPoolExhausted.enabled | bool | `true` |  |
-| prometheus.prometheusRule.addressPoolExhausted.labels.severity | string | `"alert"` |  |
+| prometheus.prometheusRule.addressPoolExhausted.labels.severity | string | `"critical"` |  |
 | prometheus.prometheusRule.addressPoolUsage.enabled | bool | `true` |  |
 | prometheus.prometheusRule.addressPoolUsage.thresholds[0].labels.severity | string | `"warning"` |  |
 | prometheus.prometheusRule.addressPoolUsage.thresholds[0].percent | int | `75` |  |
 | prometheus.prometheusRule.addressPoolUsage.thresholds[1].labels.severity | string | `"warning"` |  |
 | prometheus.prometheusRule.addressPoolUsage.thresholds[1].percent | int | `85` |  |
-| prometheus.prometheusRule.addressPoolUsage.thresholds[2].labels.severity | string | `"alert"` |  |
+| prometheus.prometheusRule.addressPoolUsage.thresholds[2].labels.severity | string | `"critical"` |  |
 | prometheus.prometheusRule.addressPoolUsage.thresholds[2].percent | int | `95` |  |
 | prometheus.prometheusRule.annotations | object | `{}` |  |
 | prometheus.prometheusRule.bgpSessionDown.enabled | bool | `true` |  |
-| prometheus.prometheusRule.bgpSessionDown.labels.severity | string | `"alert"` |  |
+| prometheus.prometheusRule.bgpSessionDown.labels.severity | string | `"critical"` |  |
 | prometheus.prometheusRule.configNotLoaded.enabled | bool | `true` |  |
 | prometheus.prometheusRule.configNotLoaded.labels.severity | string | `"warning"` |  |
 | prometheus.prometheusRule.enabled | bool | `false` |  |
@@ -116,10 +122,11 @@ Kubernetes: `>= 1.19.0-0`
 | speaker.frr.enabled | bool | `true` |  |
 | speaker.frr.image.pullPolicy | string | `nil` |  |
 | speaker.frr.image.repository | string | `"quay.io/frrouting/frr"` |  |
-| speaker.frr.image.tag | string | `"8.5.2"` |  |
+| speaker.frr.image.tag | string | `"9.1.0"` |  |
 | speaker.frr.metricsPort | int | `7473` |  |
 | speaker.frr.resources | object | `{}` |  |
 | speaker.frrMetrics.resources | object | `{}` |  |
+| speaker.ignoreExcludeLB | bool | `false` |  |
 | speaker.image.pullPolicy | string | `nil` |  |
 | speaker.image.repository | string | `"quay.io/metallb/speaker"` |  |
 | speaker.image.tag | string | `nil` |  |
